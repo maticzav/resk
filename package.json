@@ -5,7 +5,6 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "now-build": "npm run build; rimraf public; mkdir public; cp -R dist/api/* public/",
     "format": "prettier --write **/*.ts",
     "pack": "ncc build src/index.ts -m",
     "test": "jest"
