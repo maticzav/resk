@@ -6,21 +6,23 @@
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
-    "pack": "ncc build",
+    "pack": "ncc build src/index.ts -m",
     "test": "jest"
   },
   "files": [
     "dist"
   ],
-  "author": "",
+  "author": "Matic Zavadlal",
   "license": "MIT",
   "dependencies": {
     "@actions/core": "^1.2.0",
     "@actions/github": "^2.1.1",
     "@actions/glob": "^0.1.0",
+    "@octokit/rest": "^17.0.0",
     "prettier": "^1.19.1"
   },
   "devDependencies": {
+    "@now/node": "^1.4.1",
     "@types/jest": "24.9.1",
     "@types/node": "13.7.4",
     "@types/prettier": "1.19.0",

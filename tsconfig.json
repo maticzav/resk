@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "rootDir": "src",
+    "rootDirs": ["api", "src"],
     "outDir": "dist",
 
     "target": "es6",

@@ -2,7 +2,6 @@ import * as core from '@actions/core'
 import * as github from '@actions/github'
 import * as glob from '@actions/glob'
 import * as fs from 'fs'
-import * as os from 'os'
 import * as path from 'path'
 import * as prettier from 'prettier'
 
@@ -11,6 +10,7 @@ import * as prettier from 'prettier'
  */
 async function action(): Promise<void> {
   try {
+    /* Find gists */
     const globber = await glob.create('**')
     const paths = await globber.glob()
     const files = paths.map(loadFile).filter(notNull)
@@ -21,34 +21,44 @@ async function action(): Promise<void> {
 
     const gists = flatten(files.map(extractGists))
 
-    const ghToken = core.getInput('gh_token')
+    /* Create gists */
+
+    const ghToken = core.getInput('GH_TOKEN')
     const octokit = new github.GitHub(ghToken)
 
-    const { repo, sha } = github.context
+    /* Context of the aciton. */
+    const {
+      repo: { owner, repo },
+      ref,
+    } = github.context
 
-    const res = await octokit.gists
-      .create({
-        public: true,
-        files: objectFromEntries(
-          gists.map(gist => [
-            /* name of the file */
-            `${repo.repo}-${repo.owner}-${sha}-${gist.gist.name}${gist.extension}`,
-            /* file source */
-            gist.gist.source,
-          ]),
-        ),
-      })
-      .then(res => (res.data?.files as any) as { [file: string]: string })
-
-    core.debug(JSON.stringify(res))
-
-    core.info(
-      Object.keys(res)
-        .map(file => {
-          return `${file}: ${res[file]}`
-        })
-        .join(os.EOL),
+    const urls = await Promise.all(
+      gists.map(gist =>
+        octokit.gists
+          .create({
+            public: true,
+            files: {
+              [`${gist.gist.name}${gist.extension}`]: gist.gist.source,
+            },
+          })
+          .then(res => ({ gist, url: res.data.url })),
+      ),
     )
+
+    const dump = objectFromEntries(
+      urls.map(({ url, gist }) => [`${gist.gist.name}${gist.extension}`, url]),
+    )
+
+    await octokit.repos.createOrUpdateFile({
+      owner,
+      repo,
+      branch: ref,
+      content: JSON.stringify(dump),
+      path: '.github/resk.json',
+      message: 'Resk action paths update.',
+    })
+
+    core.info('Done!')
   } catch (error) /* istanblul ignore next */ {
     core.setFailed(error.message)
   }
