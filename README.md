@@ -34,7 +34,10 @@ const libraries = {
 
 This would create two gists - one named `users` and one named `libraries`. Besides that, it will also create a dump in `.github/resk.json` which includes pointers to your latest gists. This way, you don't have to change urls as you push changes.
 
-`https://resk.now.sh/api/gist?repo=label-sync&owner=maticzav&gist=tutorial.ts`
+**Embed:**
+
+- `https://resk.now.sh/api/gist?repo=label-sync&owner=maticzav&gist=tutorial.ts`
+- `<script src="https://resk.now.sh/api/gist?repo=label-sync&owner=maticzav&gist=tutorial.ts"></script>`
 
 **Supported languages:**
 
@@ -44,8 +47,6 @@ This would create two gists - one named `users` and one named `libraries`. Besid
 
 ```yml
 uses: maticzav/resk@v1
-env:
-  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Why `resk`?

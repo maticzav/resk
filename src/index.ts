@@ -11,7 +11,8 @@ import * as prettier from 'prettier'
 async function action(): Promise<void> {
   try {
     /* Find gists */
-    const globber = await glob.create('**')
+    const globs = ['**', '!node_modules', '!dist', '!tests'].join('\n')
+    const globber = await glob.create(globs)
     const paths = await globber.glob()
     const files = paths.map(loadFile).filter(notNull)
 
@@ -23,7 +24,10 @@ async function action(): Promise<void> {
 
     /* Create gists */
 
-    const ghToken = core.getInput('GH_TOKEN')
+    const ghToken = process.env.GH_TOKEN
+
+    if (!ghToken) return core.setFailed('Missing GH_TOKEN')
+
     const octokit = new github.GitHub(ghToken)
 
     /* Context of the aciton. */

@@ -1,13 +1,9 @@
-name: 'Resk Gister - create gists for your tutorial.'
-description: 'Cut the gists out of your code.'
-author: 'Matic Zavadlal'
+name: "Resk Gister - create gists for your tutorial."
+description: "Cut the gists out of your code."
+author: "Matic Zavadlal"
 branding:
   color: red
   icon: scissors
-inputs:
-  gh_token:
-    description: 'Github API token'
-    required: true
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
