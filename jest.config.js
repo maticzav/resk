@@ -1,11 +1,25 @@
 module.exports = {
-  clearMocks: true,
-  moduleFileExtensions: ['js', 'ts'],
+  roots: ['<rootDir>/tests/'],
   testEnvironment: 'node',
-  testMatch: ['**/*.test.ts'],
-  testRunner: 'jest-circus/runner',
   transform: {
-    '^.+\\.ts$': 'ts-jest'
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  verbose: true
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  testPathIgnorePatterns: ['/node_modules/', '/__fixtures__/'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  collectCoverage: true,
+  collectCoverageFrom: [
+    '**/*.ts',
+    '!**/*.d.ts',
+    '!**/dist/**',
+    '!**/node_modules/**',
+    '!**/vendor/**',
+    '!**/generated/**',
+    '!**/__fixtures__/**',
+    '!**/scenarios/**',
+    '!**/redirects/**',
+  ],
+  verbose: true,
+  coverageDirectory: './coverage',
+  coverageReporters: ['json', 'lcov', 'text', 'clover', 'html'],
 }
