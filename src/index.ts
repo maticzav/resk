@@ -83,10 +83,14 @@ type File = {
  */
 export function loadFile(filePath: string): File | null {
   const extension = path.extname(filePath)
-  const source = fs.readFileSync(filePath, { encoding: 'utf-8' })
   const lang = getLanguageFromExtension(extension)
 
-  if (notNull(lang)) return { lang, source, extension }
+  if (notNull(lang))
+    return {
+      lang,
+      source: fs.readFileSync(filePath, { encoding: 'utf-8' }),
+      extension,
+    }
   /* istanbul ignore next */
   return null
 }

@@ -48,6 +48,10 @@ env:
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+## Why `resk`?
+
+Scissors make a "resk" when you cut the paper. Making gists is like cutting gists out of a big paper.
+
 ## Contributing
 
 Please create a PR with the new features. To add a new language please add a language specification in index file, create a test case, and add documentation above.

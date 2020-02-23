@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
+    "now-build": "npm run build; rimraf public; mkdir public; cp -R dist/api/* public/",
     "format": "prettier --write **/*.ts",
     "pack": "ncc build src/index.ts -m",
     "test": "jest"
@@ -29,6 +30,7 @@
     "@zeit/ncc": "0.21.1",
     "jest": "24.9.0",
     "js-yaml": "3.13.1",
+    "rimraf": "^3.0.2",
     "ts-jest": "24.3.0",
     "typescript": "3.8.2"
   }
