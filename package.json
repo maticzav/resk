@@ -21,13 +21,13 @@
     "prettier": "^1.19.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.23",
-    "@types/node": "^13.7.4",
-    "@types/prettier": "^1.19.0",
-    "@zeit/ncc": "^0.20.5",
-    "jest": "^24.9.0",
-    "js-yaml": "^3.13.1",
-    "ts-jest": "^24.2.0",
-    "typescript": "^3.6.4"
+    "@types/jest": "24.9.1",
+    "@types/node": "13.7.4",
+    "@types/prettier": "1.19.0",
+    "@zeit/ncc": "0.20.5",
+    "jest": "24.9.0",
+    "js-yaml": "3.13.1",
+    "ts-jest": "24.3.0",
+    "typescript": "3.8.2"
   }
 }
