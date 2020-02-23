@@ -1,6 +1,9 @@
 name: 'resk'
 description: 'Cut the gists out of your code.'
 author: 'Matic Zavadlal'
+branding:
+  color: red
+  icon: scissors
 inputs:
   gh_token:
     description: 'Github API token'
