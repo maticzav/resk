@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "Cut the gists out of your code.",
   "main": "dist/index.js",
+  "bin": {
+    "resk": "dist/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { Octokit } from '@octokit/rest'
 import globby from 'globby'
 import * as fs from 'fs'
