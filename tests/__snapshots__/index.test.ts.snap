@@ -1,5 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`getLanguageExtensions 1`] = `
+Array [
+  ".ts",
+  ".tsx",
+  ".js",
+  ".jsx",
+]
+`;
+
 exports[`languages: javascript 1`] = `
 Array [
   Object {

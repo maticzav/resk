@@ -1,8 +1,4 @@
-<p align="center">
-  <a href="https://github.com/maticzav/resk/actions"><img alt="typescript-action status" src="https://github.com/maticzav/resk/workflows/test/badge.svg"></a>
-</p>
-
-# resk
+# :scissors: resk
 
 > Resk helps you create gists from your source code.
 
@@ -46,7 +42,7 @@ This would create two gists - one named `users` and one named `libraries`. Besid
 **Example usage:**
 
 ```yml
-uses: maticzav/resk@v1
+uses: maticzav/resk@v1.1
 ```
 
 ## Why `resk`?
@@ -55,7 +51,9 @@ Scissors make a "resk" when you cut the paper. Making gists is like cutting gist
 
 ## Contributing
 
-Please create a PR with the new features. To add a new language please add a language specification in index file, create a test case, and add documentation above.
+Please create a PR with the new features. To add a new language please add a language specification in index file, create a test case, and add documentation above. You might also need to update the some snapshots. Use `yarn test -u` to do that.
+
+Thank you for contributing! :raised_hands:
 
 ## License
 

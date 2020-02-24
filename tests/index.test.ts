@@ -4,6 +4,8 @@ import {
   flatten,
   noneFormatter,
   objectFromEntries,
+  globsFromExtensions,
+  getLanguageExtensions,
 } from '../src/'
 import * as path from 'path'
 
@@ -53,4 +55,12 @@ test('objectFromEntries', () => {
     foo: '1',
     bar: '2',
   })
+})
+
+test('getLanguageExtensions', () => {
+  expect(getLanguageExtensions()).toMatchSnapshot()
+})
+
+test('globsFromExtensions', () => {
+  expect(globsFromExtensions(['.ts', '.js'])).toEqual(['**/*.ts', '**/*.js'])
 })

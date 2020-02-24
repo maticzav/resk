@@ -6,12 +6,57 @@ import * as path from 'path'
 import * as prettier from 'prettier'
 
 /**
+ * Supported languages.
+ */
+export const LANGUAGES: { [lang: string]: Language } = {
+  typescript: {
+    start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
+    end: /\/\*\s*resk end\s*\*\//,
+    gistter: ([, name, source]) => ({
+      name: name!,
+      source: source!,
+    }),
+    formatter: source =>
+      prettier.format(source, {
+        semi: false,
+        trailingComma: 'all',
+        singleQuote: true,
+        parser: 'typescript',
+      }),
+    extensions: ['.ts', '.tsx'],
+  },
+  javascript: {
+    start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
+    end: /\/\*\s*resk end\s*\*\//,
+    gistter: ([, name, source]) => ({
+      name: name!,
+      source: source!,
+    }),
+    formatter: source =>
+      prettier.format(source, {
+        semi: false,
+        trailingComma: 'all',
+        singleQuote: true,
+        parser: 'babel',
+      }),
+    extensions: ['.js', '.jsx'],
+  },
+}
+
+/**
  * The main action.
  */
 async function action(): Promise<void> {
   try {
     /* Find gists */
-    const globs = ['**', '!node_modules', '!dist', '!tests'].join('\n')
+    const supportedLanguagesExts = getLanguageExtensions()
+    const supportedLanguagesGlobs = globsFromExtensions(supportedLanguagesExts)
+    const globs = [
+      ...supportedLanguagesGlobs,
+      '!node_modules',
+      '!dist',
+      '!tests',
+    ].join('\n')
     const globber = await glob.create(globs)
     const paths = await globber.glob()
     const files = paths.map(loadFile).filter(notNull)
@@ -140,53 +185,33 @@ export type Language = {
 }
 
 /**
- * Supported languages.
- */
-export const languages: { [lang: string]: Language } = {
-  typescript: {
-    start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
-    end: /\/\*\s*resk end\s*\*\//,
-    gistter: ([, name, source]) => ({
-      name: name!,
-      source: source!,
-    }),
-    formatter: source =>
-      prettier.format(source, {
-        semi: false,
-        trailingComma: 'all',
-        singleQuote: true,
-        parser: 'typescript',
-      }),
-    extensions: ['.ts', '.tsx'],
-  },
-  javascript: {
-    start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
-    end: /\/\*\s*resk end\s*\*\//,
-    gistter: ([, name, source]) => ({
-      name: name!,
-      source: source!,
-    }),
-    formatter: source =>
-      prettier.format(source, {
-        semi: false,
-        trailingComma: 'all',
-        singleQuote: true,
-        parser: 'babel',
-      }),
-    extensions: ['.js', '.jsx'],
-  },
-}
-
-/**
  * Returns a language with the specified extension from supported languages.
  * @param ext
  */
 export function getLanguageFromExtension(ext: string): Language | null {
-  const lang = Object.keys(languages).find(lang =>
-    languages[lang]!.extensions.includes(ext),
+  const lang = Object.keys(LANGUAGES).find(lang =>
+    LANGUAGES[lang]!.extensions.includes(ext),
   )
-  if (lang) return languages[lang]
+  if (lang) return LANGUAGES[lang]
+  /* istanbul ignore next */
   return null
+}
+
+/**
+ * Returns a list of extensions from a dictionary of languages.
+ * @param dict
+ */
+export function getLanguageExtensions(): string[] {
+  return flatten(Object.keys(LANGUAGES).map(lang => LANGUAGES[lang].extensions))
+}
+
+/**
+ * Turns extensions to glob patterns.
+ *
+ * @param extensions
+ */
+export function globsFromExtensions(exts: string[]): string[] {
+  return exts.map(ext => `**/*${ext}`)
 }
 
 /* Prettiers */
