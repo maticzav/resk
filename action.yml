@@ -1,9 +1,0 @@
-name: "Resk Gister - create gists for your tutorial."
-description: "Cut the gists out of your code."
-author: "Matic Zavadlal"
-branding:
-  color: red
-  icon: scissors
-runs:
-  using: "docker"
-  image: "Dockerfile"

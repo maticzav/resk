@@ -1,6 +1,5 @@
-import * as core from '@actions/core'
-import * as github from '@actions/github'
-import * as glob from '@actions/glob'
+import { Octokit } from '@octokit/rest'
+import globby from 'globby'
 import * as fs from 'fs'
 import * as path from 'path'
 import * as prettier from 'prettier'
@@ -43,46 +42,37 @@ export const LANGUAGES: { [lang: string]: Language } = {
   },
 }
 
+export type SyncInput = {
+  repo: string
+  owner: string
+  ref: string
+}
+
 /**
  * The main action.
  */
-async function action(): Promise<void> {
+export async function resk(
+  { repo, owner, ref }: SyncInput,
+  cwd: string = process.cwd(),
+): Promise<void> {
   try {
     /* Find gists */
     const supportedLanguagesExts = getLanguageExtensions()
-    core.debug(JSON.stringify(supportedLanguagesExts))
-    const supportedLanguagesGlobs = globsFromExtensions(supportedLanguagesExts)
-    core.debug(JSON.stringify(supportedLanguagesGlobs))
-    const globs = [
-      ...supportedLanguagesGlobs,
-      '!node_modules',
-      '!dist',
-      '!tests',
-    ].join('\n')
-    const globber = await glob.create(globs)
-    const paths = await globber.glob()
-    core.debug(JSON.stringify(paths))
+    const globs = globsFromExtensions(supportedLanguagesExts)
+    const paths = await globby(globs, { gitignore: true, absolute: true, cwd })
     const files = paths.map(loadFile).filter(notNull)
 
-    core.debug(JSON.stringify(files))
-
-    core.info(`Found ${paths.length} files (${files.length} supported).`)
+    console.log(`Found ${files.length} files...`)
 
     const gists = flatten(files.map(extractGists))
 
+    console.log(`Uploading ${gists.length} gists...`)
+
     /* Create gists */
 
-    const ghToken = process.env.GH_TOKEN
-
-    if (!ghToken) return core.setFailed('Missing GH_TOKEN')
-
-    const octokit = new github.GitHub(ghToken)
-
-    /* Context of the aciton. */
-    const {
-      repo: { owner, repo },
-      ref,
-    } = github.context
+    const octokit = new Octokit({
+      auth: `Bearer ${process.env.GH_TOKEN}`,
+    })
 
     const urls = await Promise.all(
       gists.map(gist =>
@@ -110,15 +100,21 @@ async function action(): Promise<void> {
       message: 'Resk action paths update.',
     })
 
-    core.info('Done!')
-  } catch (error) /* istanblul ignore next */ {
-    core.setFailed(error.message)
+    console.log(`Done!`)
+  } catch (err) /* istanbul ignore next */ {
+    console.error(err)
   }
 }
 
 /* istanbul ignore next */
 if (require.main?.filename === __filename) {
-  action()
+  let [, fullRepo, ref] = process.argv
+  const [owner, repo] = fullRepo.split('/')
+
+  if (!owner && !repo) throw new Error(`Missing repo name.`)
+  if (!ref) ref = 'master'
+
+  resk({ owner, repo, ref })
 }
 
 /* Helper functions */

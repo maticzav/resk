@@ -1,677 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`getLanguageExtensions 1`] = `
-Array [
-  ".ts",
-  ".tsx",
-  ".js",
-  ".jsx",
-]
-`;
-
-exports[`languages: javascript 1`] = `
-Array [
-  Object {
-    "extension": ".js",
-    "gist": Object {
-      "name": "schema",
-      "source": "const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".js",
-        ".jsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-  Object {
-    "extension": ".js",
-    "gist": Object {
-      "name": "fruits",
-      "source": "const fruits = [
-  { name: 'orange', count: 10 },
-  { name: 'apple', count: 1 },
-  { name: 'strawberries', count: 100 },
-]
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".js",
-        ".jsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-  Object {
-    "extension": ".js",
-    "gist": Object {
-      "name": "users",
-      "source": "const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".js",
-        ".jsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-]
-`;
-
-exports[`languages: typescript 1`] = `
-Array [
-  Object {
-    "extension": ".ts",
-    "gist": Object {
-      "name": "schema",
-      "source": "const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".ts",
-        ".tsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-  Object {
-    "extension": ".ts",
-    "gist": Object {
-      "name": "fruits",
-      "source": "const fruits = [
-  { name: 'orange', count: 10 },
-  { name: 'apple', count: 1 },
-  { name: 'strawberries', count: 100 },
-]
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".ts",
-        ".tsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-  Object {
-    "extension": ".ts",
-    "gist": Object {
-      "name": "users",
-      "source": "const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-",
-    },
-    "lang": Object {
-      "end": /\\\\/\\\\\\*\\\\s\\*resk end\\\\s\\*\\\\\\*\\\\//,
-      "extensions": Array [
-        ".ts",
-        ".tsx",
-      ],
-      "formatter": [Function],
-      "gistter": [Function],
-      "start": /\\\\/\\\\\\*\\\\s\\*resk start\\\\s\\+\\\\"\\(\\.\\+\\)\\\\"\\\\s\\*\\\\\\*\\\\//,
-    },
-    "source": "/* resk start \\"schema\\" */
-const typeDefs = \`
-  type Query {
-    frontPage: [Fruit!]!
-    fruits: [Fruit!]!
-    customers: [Customer!]!
-  }
-  type Mutation {
-    addFruitToBasket: Boolean!
-  }
-  type Fruit {
-    name: String!
-    count: Int!
-  }
-  type Customer {
-    id: ID!
-    basket: [Fruit!]!
-  }
-\`
-/* resk end */
-
-const resolvers = {
-  Query: {
-    frontPage: () => [
-      { name: 'orange', count: 10 },
-      { name: 'apple', count: 1 },
-    ],
-    fruits: () => {
-      /* resk start \\"fruits\\" */
-      const fruits = [
-        { name: 'orange', count: 10 },
-        { name: 'apple', count: 1 },
-        { name: 'strawberries', count: 100 },
-      ]
-      /* resk end */
-
-      return fruits
-    },
-    customers: () => [
-      { id: 1, basket: [{ name: 'orange', count: 1 }] },
-      { id: 2, basket: [{ name: 'apple', count: 2 }] },
-    ],
-  },
-  Mutation: {
-    addFruitToBasket: () => true,
-  },
-}
-
-// Auth
-/* resk start \\"users\\" */
-const users = {
-  mathew: {
-    id: 1,
-    name: 'Mathew',
-    role: 'admin',
-  },
-  george: {
-    id: 2,
-    name: 'George',
-    role: 'editor',
-  },
-  johnny: {
-    id: 3,
-    name: 'Johnny',
-    role: 'customer',
-  },
-}
-/* resk end */
-
-function getUser(req) {
-  const auth = req.get('Authorization')
-  if (users[auth]) {
-    return users[auth]
-  } else {
-    return null
-  }
-}
-",
-  },
-]
-`;
-
 exports[`loads the file correctly 1`] = `
 Object {
   "extension": ".ts",
@@ -761,6 +89,105 @@ function getUser(req) {
   } else {
     return null
   }
+}
+",
+}
+`;
+
+exports[`resk:  1`] = `
+Object {
+  "branch": "master",
+  "content": "{\\"schema.ts\\":\\"https://api.github.com/gists/schema.ts\\",\\"fruits.ts\\":\\"https://api.github.com/gists/fruits.ts\\",\\"users.ts\\":\\"https://api.github.com/gists/users.ts\\",\\"schema.js\\":\\"https://api.github.com/gists/schema.js\\",\\"fruits.js\\":\\"https://api.github.com/gists/fruits.js\\",\\"users.js\\":\\"https://api.github.com/gists/users.js\\"}",
+  "message": "Resk action paths update.",
+}
+`;
+
+exports[`resk:  2`] = `
+Object {
+  "fruits.js": "const fruits = [
+  { name: 'orange', count: 10 },
+  { name: 'apple', count: 1 },
+  { name: 'strawberries', count: 100 },
+]
+",
+  "fruits.ts": "const fruits = [
+  { name: 'orange', count: 10 },
+  { name: 'apple', count: 1 },
+  { name: 'strawberries', count: 100 },
+]
+",
+  "schema.js": "const typeDefs = \`
+  type Query {
+    frontPage: [Fruit!]!
+    fruits: [Fruit!]!
+    customers: [Customer!]!
+  }
+  type Mutation {
+    addFruitToBasket: Boolean!
+  }
+  type Fruit {
+    name: String!
+    count: Int!
+  }
+  type Customer {
+    id: ID!
+    basket: [Fruit!]!
+  }
+\`
+",
+  "schema.ts": "const typeDefs = \`
+  type Query {
+    frontPage: [Fruit!]!
+    fruits: [Fruit!]!
+    customers: [Customer!]!
+  }
+  type Mutation {
+    addFruitToBasket: Boolean!
+  }
+  type Fruit {
+    name: String!
+    count: Int!
+  }
+  type Customer {
+    id: ID!
+    basket: [Fruit!]!
+  }
+\`
+",
+  "users.js": "const users = {
+  mathew: {
+    id: 1,
+    name: 'Mathew',
+    role: 'admin',
+  },
+  george: {
+    id: 2,
+    name: 'George',
+    role: 'editor',
+  },
+  johnny: {
+    id: 3,
+    name: 'Johnny',
+    role: 'customer',
+  },
+}
+",
+  "users.ts": "const users = {
+  mathew: {
+    id: 1,
+    name: 'Mathew',
+    role: 'admin',
+  },
+  george: {
+    id: 2,
+    name: 'George',
+    role: 'editor',
+  },
+  johnny: {
+    id: 3,
+    name: 'Johnny',
+    role: 'customer',
+  },
 }
 ",
 }

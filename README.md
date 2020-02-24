@@ -51,7 +51,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: maticzav/resk@v1.4
+      - run: npx resk maticzav/resk
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Why `resk`?

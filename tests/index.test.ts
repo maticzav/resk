@@ -1,28 +1,53 @@
+import nock from 'nock'
+import * as path from 'path'
+
 import {
   extractGists,
   loadFile,
   flatten,
   noneFormatter,
   objectFromEntries,
-  globsFromExtensions,
-  getLanguageExtensions,
+  resk,
 } from '../src/'
-import * as path from 'path'
 
-describe('languages:', () => {
-  /* Language gists extracts. */
-  test('typescript', async () => {
-    const file = path.resolve(__dirname, './__fixtures__/typescript.ts')
-    const gists = extractGists(loadFile(file)!)
-    expect(gists).toMatchSnapshot()
-    expect(gists.length).toBe(3)
+describe('resk:', () => {
+  beforeAll(() => {
+    nock.disableNetConnect()
+    process.env.GH_TOKEN = 'test'
   })
 
-  test('javascript', async () => {
-    const file = path.resolve(__dirname, './__fixtures__/javascript.js')
-    const gists = extractGists(loadFile(file)!)
+  afterAll(() => {
+    nock.enableNetConnect()
+  })
+
+  test('', async () => {
+    expect.assertions(2)
+
+    let gists = {}
+
+    nock('https://api.github.com')
+      .post('/gists')
+      .reply(200, (uri, body) => {
+        gists = { ...gists, ...(body as any).files }
+        return {
+          url: `https://api.github.com/gists/${
+            Object.keys((body as any).files)[0]
+          }`,
+        }
+      })
+      .persist()
+
+    nock('https://api.github.com/')
+      .put('/repos/maticzav/resk/contents/.github%2Fresk.json')
+      .reply(200, (uri, body) => {
+        expect(body).toMatchSnapshot()
+        return
+      })
+
+    const fixtures = path.resolve(__dirname, './__fixtures__/')
+    await resk({ owner: 'maticzav', repo: 'resk', ref: 'master' }, fixtures)
+
     expect(gists).toMatchSnapshot()
-    expect(gists.length).toBe(3)
   })
 })
 
@@ -55,12 +80,4 @@ test('objectFromEntries', () => {
     foo: '1',
     bar: '2',
   })
-})
-
-test('getLanguageExtensions', () => {
-  expect(getLanguageExtensions()).toMatchSnapshot()
-})
-
-test('globsFromExtensions', () => {
-  expect(globsFromExtensions(['.ts', '.js'])).toEqual(['**/*.ts', '**/*.js'])
 })
