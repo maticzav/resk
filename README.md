@@ -39,10 +39,19 @@ This would create two gists - one named `users` and one named `libraries`. Besid
 
 - Typescript/Javascript: `/* resk start "<gist>" */`, `/* resk end */`
 
+> Note: `resk` automatically ignores everything in `**/tests/**`, `**/dist/**`, and `**/node_modules/**`.
+
 **Example usage:**
 
 ```yml
-uses: maticzav/resk@v1.1
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: maticzav/resk@v1.1
 ```
 
 ## Why `resk`?
