@@ -68,6 +68,12 @@ export async function resk(
 
     const gists = flatten(files.map(extractGists))
 
+    /* istanbul ignore next */
+    if (gists.length === 0) {
+      console.log(`Found no gists.`)
+      process.exit(0)
+    }
+
     console.log(`Uploading ${gists.length} gists...`)
 
     /* Create gists */
@@ -113,7 +119,10 @@ if (require.main?.filename === __filename) {
   let [, fullRepo, ref] = process.argv
   const [owner, repo] = fullRepo.split('/')
 
-  if (!owner && !repo) throw new Error(`Missing repo name.`)
+  if (!owner || !repo || !process.env.GH_TOKEN) {
+    console.error(`Missing repo name or GH_TOKEN.`)
+    process.exit(1)
+  }
   if (!ref) ref = 'master'
 
   resk({ owner, repo, ref })

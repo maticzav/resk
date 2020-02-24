@@ -56,6 +56,14 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+or
+
+```bash
+npx resk <owner>/<repo> [?ref="master"]
+```
+
+> NOTE: You must provide the environment variable `GH_TOKEN`.
+
 ## Why `resk`?
 
 Scissors make a "resk" when you cut the paper. Making gists is like cutting gists out of a big paper.
