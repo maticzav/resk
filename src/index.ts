@@ -50,7 +50,9 @@ async function action(): Promise<void> {
   try {
     /* Find gists */
     const supportedLanguagesExts = getLanguageExtensions()
+    core.debug(JSON.stringify(supportedLanguagesExts))
     const supportedLanguagesGlobs = globsFromExtensions(supportedLanguagesExts)
+    core.debug(JSON.stringify(supportedLanguagesGlobs))
     const globs = [
       ...supportedLanguagesGlobs,
       '!node_modules',
@@ -59,6 +61,7 @@ async function action(): Promise<void> {
     ].join('\n')
     const globber = await glob.create(globs)
     const paths = await globber.glob()
+    core.debug(JSON.stringify(paths))
     const files = paths.map(loadFile).filter(notNull)
 
     core.debug(JSON.stringify(files))

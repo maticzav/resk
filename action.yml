@@ -5,5 +5,5 @@ branding:
   color: red
   icon: scissors
 runs:
-  using: "node12"
-  main: "dist/index.js"
+  using: "docker"
+  image: "Dockerfile"
