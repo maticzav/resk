@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: maticzav/resk@v1.3
+      - uses: maticzav/resk@v1.4
 ```
 
 ## Why `resk`?

@@ -15,4 +15,4 @@ RUN yarn install
 # Build Server
 RUN yarn pack
 
-CMD ["node", "./dist/index.js"]
+CMD ["node", "/dist/index.js"]
