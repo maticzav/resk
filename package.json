@@ -27,7 +27,7 @@
     "@now/node": "1.4.1",
     "@types/jest": "24.9.1",
     "@types/nock": "11.1.0",
-    "@types/node": "13.7.4",
+    "@types/node": "13.9.0",
     "@types/prettier": "1.19.0",
     "@zeit/ncc": "0.21.1",
     "jest": "24.9.0",
