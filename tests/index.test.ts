@@ -21,7 +21,14 @@ describe('resk:', () => {
     nock('https://api.github.com')
       .post('/gists')
       .reply(200, (uri, body) => {
-        gists = { ...gists, ...(body as any).files }
+        const fileName = Object.keys((body as any).files)[0]
+        gists = {
+          ...gists,
+          [fileName]: new Buffer(
+            (body as any).files[fileName].content,
+            'base64',
+          ).toString('ascii'),
+        }
         return {
           url: `https://api.github.com/gists/${
             Object.keys((body as any).files)[0]

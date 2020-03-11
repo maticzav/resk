@@ -64,7 +64,7 @@ export async function resk(
             public: true,
             files: {
               [`${gist.gist.name}${gist.extension}`]: {
-                content: gist.gist.source,
+                content: new Buffer(gist.gist.source).toString('base64'),
               },
             },
           })

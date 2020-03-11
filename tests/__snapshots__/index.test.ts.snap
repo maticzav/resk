@@ -104,38 +104,29 @@ Object {
 
 exports[`resk: test languages 2`] = `
 Object {
-  "action.yml": Object {
-    "content": "steps:
+  "action.yml": "steps:
   - test: \\"yarn run test\\"
   - publish:
       on: npm
       package: resk
 ",
-  },
-  "fruits.js": Object {
-    "content": "const fruits = [
+  "fruits.js": "const fruits = [
   { name: 'orange', count: 10 },
   { name: 'apple', count: 1 },
   { name: 'strawberries', count: 100 },
 ]
 ",
-  },
-  "fruits.ts": Object {
-    "content": "const fruits = [
+  "fruits.ts": "const fruits = [
   { name: 'orange', count: 10 },
   { name: 'apple', count: 1 },
   { name: 'strawberries', count: 100 },
 ]
 ",
-  },
-  "nested.yml": Object {
-    "content": "- 1
+  "nested.yml": "- 1
 - 2
 - 3
 ",
-  },
-  "schema.js": Object {
-    "content": "const typeDefs = \`
+  "schema.js": "const typeDefs = \`
   type Query {
     frontPage: [Fruit!]!
     fruits: [Fruit!]!
@@ -154,9 +145,7 @@ Object {
   }
 \`
 ",
-  },
-  "schema.ts": Object {
-    "content": "const typeDefs = \`
+  "schema.ts": "const typeDefs = \`
   type Query {
     frontPage: [Fruit!]!
     fruits: [Fruit!]!
@@ -175,9 +164,7 @@ Object {
   }
 \`
 ",
-  },
-  "users.js": Object {
-    "content": "const users = {
+  "users.js": "const users = {
   mathew: {
     id: 1,
     name: 'Mathew',
@@ -195,9 +182,7 @@ Object {
   },
 }
 ",
-  },
-  "users.ts": Object {
-    "content": "const users = {
+  "users.ts": "const users = {
   mathew: {
     id: 1,
     name: 'Mathew',
@@ -215,6 +200,5 @@ Object {
   },
 }
 ",
-  },
 }
 `;
