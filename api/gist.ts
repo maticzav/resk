@@ -42,7 +42,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       return res.status(404).send("Couldn't find the gist.")
     }
 
-    return res.status(301).send(url)
+    return res.status(302).send(url)
   } catch (err) {
     console.error(err)
     return res.status(500)
