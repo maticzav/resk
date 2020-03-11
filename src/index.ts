@@ -119,11 +119,17 @@ if (require.main?.filename === __filename) {
   let [, fullRepo, ref] = process.argv
   const [owner, repo] = fullRepo.split('/')
 
-  if (!owner || !repo || !process.env.GH_TOKEN) {
-    console.error(`Missing repo name or GH_TOKEN.`)
+  if (!owner || !repo) {
+    console.error(`Missing full repo name. Recieved ${fullRepo}`)
+    process.exit(1)
+  }
+  if (!process.env.GH_TOKEN) {
+    console.error(`Missing GH_TOKEN!`)
     process.exit(1)
   }
   if (!ref) ref = 'master'
+
+  console.log(`✂️ running on ${owner}/${repo}:${ref}`)
 
   resk({ owner, repo, ref })
 }
