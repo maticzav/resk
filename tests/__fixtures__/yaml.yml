@@ -1,0 +1,15 @@
+# resk start "action"
+steps:
+  - test: "yarn run test"
+  - publish:
+      on: npm
+      package: resk
+# resk end "action"
+
+something:
+  nested:
+    # resk start "nested"
+    - 1
+    - 2
+    - 3
+    # resk end "nested"
