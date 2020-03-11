@@ -37,7 +37,6 @@ export async function resk(
       dot: true,
       cwd,
     })
-    console.log(paths)
     const files = paths.map(loadFile).filter(notNull)
 
     console.log(`Found ${files.length} files...`)
