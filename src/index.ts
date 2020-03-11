@@ -64,7 +64,7 @@ export async function resk(
             public: true,
             files: {
               [`${gist.gist.name}${gist.extension}`]: {
-                content: new Buffer(gist.gist.source).toString('base64'),
+                content: gist.gist.source,
               },
             },
           })
@@ -75,12 +75,14 @@ export async function resk(
     const dump = objectFromEntries(
       urls.map(({ url, gist }) => [`${gist.gist.name}${gist.extension}`, url]),
     )
+    const file = JSON.stringify(dump)
+    const buffer = Buffer.from(file, 'utf-8').toString('base64')
 
     await octokit.repos.createOrUpdateFile({
       owner,
       repo,
       branch: ref,
-      content: JSON.stringify(dump),
+      content: buffer,
       path: '.github/resk.json',
       message: 'Resk action paths update.',
     })

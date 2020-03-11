@@ -24,10 +24,7 @@ describe('resk:', () => {
         const fileName = Object.keys((body as any).files)[0]
         gists = {
           ...gists,
-          [fileName]: new Buffer(
-            (body as any).files[fileName].content,
-            'base64',
-          ).toString('ascii'),
+          [fileName]: (body as any).files[fileName].content,
         }
         return {
           url: `https://api.github.com/gists/${
@@ -40,7 +37,9 @@ describe('resk:', () => {
     nock('https://api.github.com/')
       .put('/repos/maticzav/resk/contents/.github%2Fresk.json')
       .reply(200, (uri, body) => {
-        expect(body).toMatchSnapshot()
+        expect(
+          Buffer.from((body as any).content, 'base64').toString('utf-8'),
+        ).toMatchSnapshot()
         return
       })
 
