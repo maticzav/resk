@@ -63,7 +63,9 @@ export async function resk(
           .create({
             public: true,
             files: {
-              [`${gist.gist.name}${gist.extension}`]: gist.gist.source,
+              [`${gist.gist.name}${gist.extension}`]: {
+                content: gist.gist.source,
+              },
             },
           })
           .then(res => ({ gist, url: res.data.url })),

@@ -19,22 +19,22 @@
   "author": "Matic Zavadlal",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^17.0.0",
+    "@octokit/rest": "^17.0.1",
     "globby": "^11.0.0",
     "prettier": "^1.19.1"
   },
   "devDependencies": {
     "@now/node": "1.4.1",
-    "@types/jest": "24.9.1",
-    "@types/node": "13.7.4",
+    "@types/jest": "25.1.4",
+    "@types/node": "13.9.0",
     "@types/prettier": "1.19.0",
     "@zeit/ncc": "0.21.1",
-    "jest": "24.9.0",
+    "jest": "25.1.0",
     "js-yaml": "3.13.1",
-    "nock": "12.0.1",
+    "nock": "12.0.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "24.3.0",
+    "ts-jest": "25.2.1",
     "ts-node": "8.6.2",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   }
 }
