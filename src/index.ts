@@ -68,7 +68,7 @@ export async function resk(
               },
             },
           })
-          .then(res => ({ gist, url: res.data.url })),
+          .then(res => ({ gist, url: res.data.html_url })),
       ),
     )
 
