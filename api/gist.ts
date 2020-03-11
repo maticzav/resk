@@ -5,17 +5,17 @@ import { NowRequest, NowResponse } from '@now/node'
  * /gist?repo=graphql-shield&owner=maticzav&gist=libraries.ts
  */
 export default async (req: NowRequest, res: NowResponse) => {
-  const { repo, owner, gist, ref } = req.query
+  const { repo, owner, gist, branch } = req.query
   if (
     typeof repo !== 'string' ||
     typeof owner !== 'string' ||
     typeof gist !== 'string' ||
-    (ref !== undefined && typeof ref !== 'string')
+    (branch !== undefined && typeof branch !== 'string')
   ) {
     return res
       .status(404)
       .send(
-        `Missing repo, owner, or gist query. ref is optional and defaults to master.`,
+        `Missing repo, owner, or gist query. branch is optional and defaults to master.`,
       )
   }
 
@@ -26,7 +26,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       .getContents({
         owner,
         repo,
-        ref: ref || 'master',
+        ref: branch || 'master',
         path: '.github/resk.json',
       })
       .then(res => res.data)

@@ -60,7 +60,7 @@ jobs:
 or
 
 ```bash
-npx resk <owner>/<repo> [?ref="master"]
+npx resk <owner>/<repo> [?branch="master"]
 ```
 
 > NOTE: You must provide the environment variable `GH_TOKEN`.

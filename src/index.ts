@@ -17,14 +17,14 @@ import { notNull, objectFromEntries, flatten } from './utils'
 export type SyncInput = {
   repo: string
   owner: string
-  ref: string
+  branch: string
 }
 
 /**
  * The main action.
  */
 export async function resk(
-  { repo, owner, ref }: SyncInput,
+  { repo, owner, branch }: SyncInput,
   cwd: string = process.cwd(),
 ): Promise<void> {
   try {
@@ -72,16 +72,27 @@ export async function resk(
       ),
     )
 
+    /* Upload links file */
+
     const dump = objectFromEntries(
       urls.map(({ url, gist }) => [`${gist.gist.name}${gist.extension}`, url]),
     )
     const file = JSON.stringify(dump)
     const buffer = Buffer.from(file, 'utf-8').toString('base64')
 
+    const ref = await octokit.git
+      .getRef({
+        owner: owner,
+        repo: repo,
+        ref: `heads/${branch}`,
+      })
+      .then(res => res.data)
+
     await octokit.repos.createOrUpdateFile({
       owner,
       repo,
-      branch: ref,
+      branch: branch,
+      sha: ref.object.sha,
       content: buffer,
       path: '.github/resk.json',
       message: 'Resk action paths update.',
@@ -99,7 +110,7 @@ export async function resk(
 
 /* istanbul ignore next */
 if (require.main?.filename === __filename) {
-  let [argv, filename, fullRepo, ref] = process.argv
+  let [argv, filename, fullRepo, branch] = process.argv
   const [owner, repo] = fullRepo.split('/')
 
   if (!owner || !repo) {
@@ -113,11 +124,11 @@ if (require.main?.filename === __filename) {
     console.error(`Missing GH_TOKEN!`)
     process.exit(1)
   }
-  if (!ref) ref = 'master'
+  if (!branch) branch = 'master'
 
-  console.log(`ref: ${ref}`)
+  console.log(`branch: ${branch}`)
 
-  resk({ owner, repo, ref })
+  resk({ owner, repo, branch })
 }
 
 /* Helper functions */

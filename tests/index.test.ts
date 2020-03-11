@@ -27,12 +27,18 @@ describe('resk:', () => {
           [fileName]: (body as any).files[fileName].content,
         }
         return {
-          url: `https://api.github.com/gists/${
+          html_url: `https://api.github.com/gists/${
             Object.keys((body as any).files)[0]
           }`,
         }
       })
       .persist()
+
+    nock('https://api.github.com/')
+      .get('/repos/maticzav/resk/git/ref/heads%2Fmaster')
+      .reply(200, () => {
+        return { object: { sha: 'sha' } }
+      })
 
     nock('https://api.github.com/')
       .put('/repos/maticzav/resk/contents/.github%2Fresk.json')
@@ -44,7 +50,7 @@ describe('resk:', () => {
       })
 
     const fixtures = path.resolve(__dirname, './__fixtures__/')
-    await resk({ owner: 'maticzav', repo: 'resk', ref: 'master' }, fixtures)
+    await resk({ owner: 'maticzav', repo: 'resk', branch: 'master' }, fixtures)
 
     expect(gists).toMatchSnapshot()
   })
