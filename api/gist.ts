@@ -26,7 +26,7 @@ export default async (req: NowRequest, res: NowResponse) => {
       .getContents({
         owner,
         repo,
-        ref,
+        ref: ref || 'master',
         path: '.github/resk.json',
       })
       .then(res => res.data)
@@ -36,12 +36,13 @@ export default async (req: NowRequest, res: NowResponse) => {
     }
 
     const dump = JSON.parse(Buffer.from(ghData.content, 'base64').toString())
-    const url = dump[gist]
+    const url: string | undefined = dump[gist]
 
     if (!url) {
       return res.status(404).send("Couldn't find the gist.")
     }
 
+    res.setHeader('Location', url)
     return res.status(302).send(url)
   } catch (err) {
     console.error(err)
