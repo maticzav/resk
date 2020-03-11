@@ -80,7 +80,11 @@ export async function resk(
 
     console.log(`Done!`)
   } catch (err) /* istanbul ignore next */ {
+    console.log(
+      `SUGGESTION: make sure your GH_TOKEN has access to Gist and can write to your repository!`,
+    )
     console.error(err)
+    process.exit(1)
   }
 }
 
