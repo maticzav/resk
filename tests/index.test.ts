@@ -14,7 +14,7 @@ describe('resk:', () => {
   })
 
   test('test languages', async () => {
-    expect.assertions(2)
+    expect.assertions(3)
 
     let gists = {}
 
@@ -35,19 +35,19 @@ describe('resk:', () => {
       .persist()
 
     nock('https://api.github.com/')
-      .get('/repos/maticzav/resk/git/ref/heads%2Fmaster')
-      .reply(200, () => {
-        return { object: { sha: 'sha' } }
+      .get('/repos/maticzav/resk/contents/.github%2Fresk.json?ref=master')
+      .reply(200, (uri, body) => {
+        return { sha: 'sha' }
       })
-
-    nock('https://api.github.com/')
       .put('/repos/maticzav/resk/contents/.github%2Fresk.json')
       .reply(200, (uri, body) => {
+        expect((body as any).sha).toBe('sha')
         expect(
           Buffer.from((body as any).content, 'base64').toString('utf-8'),
         ).toMatchSnapshot()
         return
       })
+      .persist()
 
     const fixtures = path.resolve(__dirname, './__fixtures__/')
     await resk({ owner: 'maticzav', repo: 'resk', branch: 'master' }, fixtures)

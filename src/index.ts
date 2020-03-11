@@ -74,27 +74,31 @@ export async function resk(
 
     /* Upload links file */
 
+    const RESK_SYNC_PATH = '.github/resk.json'
+
     const dump = objectFromEntries(
       urls.map(({ url, gist }) => [`${gist.gist.name}${gist.extension}`, url]),
     )
     const file = JSON.stringify(dump)
     const buffer = Buffer.from(file, 'utf-8').toString('base64')
 
-    const ref = await octokit.git
-      .getRef({
+    const sha = await octokit.repos
+      .getContents({
         owner: owner,
         repo: repo,
-        ref: `heads/${branch}`,
+        ref: branch,
+        path: RESK_SYNC_PATH,
       })
-      .then(res => res.data)
+      .then(res => (Array.isArray(res.data) ? undefined : res.data.sha))
+      .catch(() => undefined)
 
     await octokit.repos.createOrUpdateFile({
       owner,
       repo,
       branch: branch,
-      sha: ref.object.sha,
+      sha: sha,
       content: buffer,
-      path: '.github/resk.json',
+      path: RESK_SYNC_PATH,
       message: 'Resk action paths update.',
     })
 
