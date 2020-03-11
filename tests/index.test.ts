@@ -1,14 +1,7 @@
 import nock from 'nock'
 import * as path from 'path'
 
-import {
-  extractGists,
-  loadFile,
-  flatten,
-  noneFormatter,
-  objectFromEntries,
-  resk,
-} from '../src/'
+import { loadFile, resk } from '../src/'
 
 describe('resk:', () => {
   beforeAll(() => {
@@ -20,7 +13,7 @@ describe('resk:', () => {
     nock.enableNetConnect()
   })
 
-  test('', async () => {
+  test('test languages', async () => {
     expect.assertions(2)
 
     let gists = {}
@@ -54,30 +47,4 @@ describe('resk:', () => {
 test('loads the file correctly', async () => {
   const file = path.resolve(__dirname, './__fixtures__/typescript.ts')
   expect(loadFile(file)).toMatchSnapshot()
-})
-
-test('flattens', () => {
-  expect(
-    flatten([
-      [1, 2, 3],
-      [4, 5, 6],
-    ]),
-  ).toEqual([1, 2, 3, 4, 5, 6])
-})
-
-test('noneFormatter', () => {
-  const rand = Math.random().toString()
-  expect(noneFormatter(rand)).toBe(rand)
-})
-
-test('objectFromEntries', () => {
-  expect(
-    objectFromEntries([
-      ['foo', '1'],
-      ['bar', '2'],
-    ]),
-  ).toEqual({
-    foo: '1',
-    bar: '2',
-  })
 })

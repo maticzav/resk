@@ -70,7 +70,7 @@ Scissors make a "resk" when you cut the paper. Making gists is like cutting gist
 
 ## Contributing
 
-Please create a PR with the new features. To add a new language please add a language specification in index file, create a test case, and add documentation above. You might also need to update the some snapshots. Use `yarn test -u` to do that.
+Please create a PR with the new features. To add a new language please add a language specification in the `src/languages.ts` file, create a sample file in `tests/__fixtures__/` folder, and add documentation above. You might also need to update some snapshots. Use `yarn test -u` to do that.
 
 Thank you for contributing! :raised_hands:
 

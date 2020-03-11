@@ -94,7 +94,7 @@ function getUser(req) {
 }
 `;
 
-exports[`resk:  1`] = `
+exports[`resk: test languages 1`] = `
 Object {
   "branch": "master",
   "content": "{\\"schema.ts\\":\\"https://api.github.com/gists/schema.ts\\",\\"fruits.ts\\":\\"https://api.github.com/gists/fruits.ts\\",\\"users.ts\\":\\"https://api.github.com/gists/users.ts\\",\\"schema.js\\":\\"https://api.github.com/gists/schema.js\\",\\"fruits.js\\":\\"https://api.github.com/gists/fruits.js\\",\\"users.js\\":\\"https://api.github.com/gists/users.js\\"}",
@@ -102,7 +102,7 @@ Object {
 }
 `;
 
-exports[`resk:  2`] = `
+exports[`resk: test languages 2`] = `
 Object {
   "fruits.js": "const fruits = [
   { name: 'orange', count: 10 },
