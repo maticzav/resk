@@ -31,7 +31,13 @@ export async function resk(
     /* Find gists */
     const supportedLanguagesExts = getLanguageExtensions()
     const globs = globsFromExtensions(supportedLanguagesExts)
-    const paths = await globby(globs, { gitignore: true, absolute: true, cwd })
+    const paths = await globby(globs, {
+      gitignore: true,
+      absolute: true,
+      dot: true,
+      cwd,
+    })
+    console.log(paths)
     const files = paths.map(loadFile).filter(notNull)
 
     console.log(`Found ${files.length} files...`)
