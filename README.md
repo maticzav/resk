@@ -17,7 +17,7 @@ const users = {
     role: 'admin',
   },
 }
-/* resk end */
+/* resk end "users" */
 
 /* resk start "libraries" */
 const libraries = {
@@ -25,7 +25,7 @@ const libraries = {
     cool: 9001,
   },
 }
-/* resk end */
+/* resk end "libraries" */
 ```
 
 This would create two gists - one named `users` and one named `libraries`. Besides that, it will also create a dump in `.github/resk.json` which includes pointers to your latest gists. This way, you don't have to change urls as you push changes.
@@ -37,7 +37,8 @@ This would create two gists - one named `users` and one named `libraries`. Besid
 
 **Supported languages:**
 
-- Typescript/Javascript: `/* resk start "<gist>" */`, `/* resk end */`
+- Typescript/Javascript: `/* resk start "<gist>" */`, `/* resk end "<gist>" */`
+- Yaml: `# resk start "<gist>"`, `# resk end "<gist>"`
 
 > Note: `resk` automatically ignores everything in `**/tests/**`, `**/dist/**`, and `**/node_modules/**`.
 

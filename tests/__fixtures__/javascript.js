@@ -18,7 +18,7 @@ const typeDefs = `
   }
 `
 
-/* resk end */
+/* resk end "schema" */
 
 const resolvers = {
   Query: {
@@ -33,7 +33,7 @@ const resolvers = {
         { name: 'apple', count: 1 },
         { name: 'strawberries', count: 100 },
       ]
-      /* resk end */
+      /* resk end "fruits" */
 
       return fruits
     },
@@ -66,7 +66,7 @@ const users = {
     role: 'customer',
   },
 }
-/* resk end */
+/* resk end "users" */
 
 function getUser(req) {
   const auth = req.get('Authorization')

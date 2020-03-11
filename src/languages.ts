@@ -7,7 +7,7 @@ import { flatten } from './utils'
 export const LANGUAGES: { [lang: string]: Language } = {
   typescript: {
     start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
-    end: /\/\*\s*resk end\s*\*\//,
+    end: /\/\*\s*resk end\s+\"\1\"\s*\*\//,
     gistter: ([, name, source]) => ({
       name: name!,
       source: source!,
@@ -23,7 +23,7 @@ export const LANGUAGES: { [lang: string]: Language } = {
   },
   javascript: {
     start: /\/\*\s*resk start\s+\"(.+)\"\s*\*\//,
-    end: /\/\*\s*resk end\s*\*\//,
+    end: /\/\*\s*resk end\s+\"\1\"\s*\*\//,
     gistter: ([, name, source]) => ({
       name: name!,
       source: source!,
@@ -39,7 +39,7 @@ export const LANGUAGES: { [lang: string]: Language } = {
   },
   yaml: {
     start: /\#\s*resk start\s+\"(.+)\"/,
-    end: /\#\s*resk end\s*/,
+    end: /\#\s*resk end\s+\"\1\"/,
     gistter: ([, name, source]) => ({
       name: name!,
       source: source!,
