@@ -37,6 +37,19 @@ export const LANGUAGES: { [lang: string]: Language } = {
       }),
     extensions: ['.js', '.jsx'],
   },
+  yaml: {
+    start: /\#\s*resk start\s+\"(.+)\"/,
+    end: /\#\s*resk end\s*/,
+    gistter: ([, name, source]) => ({
+      name: name!,
+      source: source!,
+    }),
+    formatter: source =>
+      prettier.format(source, {
+        parser: 'yaml',
+      }),
+    extensions: ['.yml', '.yaml'],
+  },
 }
 
 export type Language = {
