@@ -4,6 +4,8 @@
 
 ## How to use?
 
+> https://medium.com/@maticzav/resk-%EF%B8%8F-ac5d1f92be66
+
 It's so simple! Add a start and end comment to the part of the code you would like to turn into a gist.
 
 For example, if you had a TypeScript file, you could do something like this:
