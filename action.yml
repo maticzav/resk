@@ -1,0 +1,5 @@
+name: "Resk"
+description: "Resk helps you create gists from your source code."
+runs:
+  using: "docker"
+  image: "Dockerfile"

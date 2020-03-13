@@ -20,6 +20,8 @@ export type SyncInput = {
   branch: string
 }
 
+const RESK_SYNC_PATH = '.github/resk.json'
+
 /**
  * The main action.
  */
@@ -51,58 +53,76 @@ export async function resk(
 
     console.log(`Uploading ${gists.length} gists...`)
 
-    /* Create gists */
+    /* Sync gists */
 
     const octokit = new Octokit({
       auth: `Bearer ${process.env.GH_TOKEN}`,
     })
 
-    const urls = await Promise.all(
-      gists.map(gist =>
-        octokit.gists
-          .create({
-            public: true,
-            files: {
-              [`${gist.gist.name}${gist.extension}`]: {
-                content: gist.gist.source,
-              },
-            },
-          })
-          .then(res => ({ gist, url: res.data.html_url })),
-      ),
-    )
-
-    /* Upload links file */
-
-    const RESK_SYNC_PATH = '.github/resk.json'
-
-    const dump = objectFromEntries(
-      urls.map(({ url, gist }) => [`${gist.gist.name}${gist.extension}`, url]),
-    )
-    const file = JSON.stringify(dump)
-    const buffer = Buffer.from(file, 'utf-8').toString('base64')
-
-    const sha = await octokit.repos
+    /**
+     * Loads the current dump to see which gists have already been created.
+     */
+    const currentDump = await octokit.repos
       .getContents({
         owner: owner,
         repo: repo,
         ref: branch,
         path: RESK_SYNC_PATH,
       })
-      .then(res => (Array.isArray(res.data) ? undefined : res.data.sha))
+      .then(res => (Array.isArray(res.data) ? undefined : res.data))
       .catch(() => undefined)
+    const currentGists = loadDump(currentDump?.content)
+
+    /**
+     * Updates existing gists and creates new ones.
+     */
+    const newGists = await Promise.all(
+      gists.map<
+        Promise<{
+          gist: Gist
+          data: { id: string; html_url: string }
+        }>
+      >(async ({ gist }) => {
+        if (currentGists.hasOwnProperty(gist.name)) {
+          return octokit.gists
+            .update({
+              gist_id: currentGists[gist.name]!.id,
+              files: {
+                [name]: { content: gist.source },
+              },
+            })
+            .then(res => ({ gist, data: res.data }))
+        }
+        return octokit.gists
+          .create({
+            public: true,
+            files: {
+              [gist.name]: { content: gist.source },
+            },
+          })
+          .then(res => ({ gist, data: res.data }))
+      }),
+    )
+
+    /* Upload links file */
+
+    const newDump = createDump(getDump(newGists))
 
     await octokit.repos.createOrUpdateFile({
       owner,
       repo,
       branch: branch,
-      sha: sha,
-      content: buffer,
+      sha: currentDump?.sha,
+      content: newDump,
       path: RESK_SYNC_PATH,
       message: 'Resk action paths update.',
     })
 
-    console.log(`Done!`)
+    console.log(`Done creating Gists!`)
+
+    newGists.forEach(({ gist, data }) => {
+      console.log(`${gist.name}: ${data.html_url}`)
+    })
   } catch (err) /* istanbul ignore next */ {
     console.log(
       `SUGGESTION: make sure your GH_TOKEN has access to Gist and can write to your repository!`,
@@ -170,6 +190,50 @@ export function extractGists(file: File): (File & { gist: Gist })[] {
 
   return matches
     .map(lang.gistter)
-    .map(({ name, source }) => ({ name, source: lang.formatter(source, file) }))
+    .map(({ name, source }) => ({
+      name: `${name}${file.extension}`,
+      source: lang.formatter(source, file),
+    }))
     .map(gist => ({ ...file, gist }))
+}
+
+type GistDump = {
+  [gist: string]: {
+    id: string
+    html_url: string
+  }
+}
+
+/**
+ * Creates a gist dump from Github's response.
+ * @param gist
+ */
+function getDump(
+  gists: {
+    gist: Gist
+    data: { id: string; html_url: string }
+  }[],
+): GistDump {
+  return objectFromEntries(
+    gists.map(({ data, gist }) => [
+      gist.name,
+      { id: data.id, html_url: data.html_url },
+    ]),
+  )
+}
+
+/**
+ * Converts the dump into a base64 string.
+ * @param dump
+ */
+function createDump(dump: GistDump): string {
+  return Buffer.from(JSON.stringify(dump), 'utf-8').toString('base64')
+}
+
+/**
+ * Loads a dump from the base64 string.
+ * @param dump
+ */
+function loadDump(dump: string | undefined): GistDump {
+  return dump ? JSON.parse(Buffer.from(dump, 'base64').toString('utf-8')) : {}
 }

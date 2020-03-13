@@ -20,9 +20,9 @@ export function flatten<T>(xss: T[][]): T[] {
  * Creates an object from entries.
  * @param entries
  */
-export function objectFromEntries(
-  entries: [string, string][],
-): { [key: string]: string } {
+export function objectFromEntries<T>(
+  entries: [string, T][],
+): { [key: string]: T } {
   return entries.reduce((acc, [key, value]) => {
     return {
       ...acc,

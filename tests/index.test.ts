@@ -14,9 +14,18 @@ describe('resk:', () => {
   })
 
   test('test languages', async () => {
-    expect.assertions(3)
+    expect.assertions(4)
 
     let gists = {}
+    let logs: string[] = []
+
+    /* Mocks */
+
+    let defaultLog = console.log
+
+    console.log = jest.fn().mockImplementation(log => {
+      logs.push(log)
+    })
 
     nock('https://api.github.com')
       .post('/gists')
@@ -53,6 +62,11 @@ describe('resk:', () => {
     await resk({ owner: 'maticzav', repo: 'resk', branch: 'master' }, fixtures)
 
     expect(gists).toMatchSnapshot()
+    expect(logs).toMatchSnapshot()
+
+    /* Clear mocks */
+
+    console.log = defaultLog
   })
 })
 

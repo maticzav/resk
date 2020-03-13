@@ -94,7 +94,7 @@ function getUser(req) {
 }
 `;
 
-exports[`resk: test languages 1`] = `"{\\"schema.ts\\":\\"https://api.github.com/gists/schema.ts\\",\\"fruits.ts\\":\\"https://api.github.com/gists/fruits.ts\\",\\"users.ts\\":\\"https://api.github.com/gists/users.ts\\",\\"schema.js\\":\\"https://api.github.com/gists/schema.js\\",\\"fruits.js\\":\\"https://api.github.com/gists/fruits.js\\",\\"users.js\\":\\"https://api.github.com/gists/users.js\\",\\"action.yml\\":\\"https://api.github.com/gists/action.yml\\",\\"nested.yml\\":\\"https://api.github.com/gists/nested.yml\\"}"`;
+exports[`resk: test languages 1`] = `"{\\"schema.ts\\":{\\"html_url\\":\\"https://api.github.com/gists/schema.ts\\"},\\"fruits.ts\\":{\\"html_url\\":\\"https://api.github.com/gists/fruits.ts\\"},\\"users.ts\\":{\\"html_url\\":\\"https://api.github.com/gists/users.ts\\"},\\"schema.js\\":{\\"html_url\\":\\"https://api.github.com/gists/schema.js\\"},\\"fruits.js\\":{\\"html_url\\":\\"https://api.github.com/gists/fruits.js\\"},\\"users.js\\":{\\"html_url\\":\\"https://api.github.com/gists/users.js\\"},\\"action.yml\\":{\\"html_url\\":\\"https://api.github.com/gists/action.yml\\"},\\"nested.yml\\":{\\"html_url\\":\\"https://api.github.com/gists/nested.yml\\"}}"`;
 
 exports[`resk: test languages 2`] = `
 Object {
@@ -195,4 +195,20 @@ Object {
 }
 ",
 }
+`;
+
+exports[`resk: test languages 3`] = `
+Array [
+  "Found 3 files...",
+  "Uploading 8 gists...",
+  "Done creating Gists!",
+  "schema.ts: https://api.github.com/gists/schema.ts",
+  "fruits.ts: https://api.github.com/gists/fruits.ts",
+  "users.ts: https://api.github.com/gists/users.ts",
+  "schema.js: https://api.github.com/gists/schema.js",
+  "fruits.js: https://api.github.com/gists/fruits.js",
+  "users.js: https://api.github.com/gists/users.js",
+  "action.yml: https://api.github.com/gists/action.yml",
+  "nested.yml: https://api.github.com/gists/nested.yml",
+]
 `;

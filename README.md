@@ -32,11 +32,6 @@ const libraries = {
 
 This would create two gists - one named `users` and one named `libraries`. Besides that, it will also create a dump in `.github/resk.json` which includes pointers to your latest gists. This way, you don't have to change urls as you push changes.
 
-**Embed:**
-
-- `https://resk.now.sh/api/gist?repo=label-sync&owner=maticzav&gist=tutorial.ts`
-- `<script src="https://resk.now.sh/api/gist?repo=label-sync&owner=maticzav&gist=tutorial.ts"></script>`
-
 **Supported languages:**
 
 - Typescript/Javascript: `/* resk start "<gist>" */`, `/* resk end "<gist>" */`
@@ -63,6 +58,21 @@ or
 
 ```bash
 npx resk <owner>/<repo> [?branch="master"]
+```
+
+or
+
+```yaml
+on: [push]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resk
+        uses: maticzav/resk@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 > NOTE: You must provide the environment variable `GH_TOKEN`.
