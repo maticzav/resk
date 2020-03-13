@@ -1,5 +1,7 @@
-name: "Resk"
+name: "resk"
 description: "Resk helps you create gists from your source code."
+icon: "align-right"
+color: "yellow"
 runs:
   using: "docker"
   image: "Dockerfile"
