@@ -88,7 +88,7 @@ export async function resk(
             .update({
               gist_id: currentGists[gist.name]!.id,
               files: {
-                [name]: { content: gist.source },
+                [gist.name]: { content: gist.source },
               },
             })
             .then(res => ({ gist, data: res.data }))

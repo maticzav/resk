@@ -41,12 +41,32 @@ describe('resk:', () => {
           }`,
         }
       })
-      .persist()
+
+    nock('https://api.github.com')
+      .patch('/gists/123')
+      .reply(200, (uri, body) => {
+        const fileName = Object.keys((body as any).files)[0]
+        gists = {
+          ...gists,
+          [fileName]: (body as any).files[fileName].content,
+        }
+        return {
+          html_url: `https://api.github.com/gists/${
+            Object.keys((body as any).files)[0]
+          }`,
+        }
+      })
 
     nock('https://api.github.com/')
       .get('/repos/maticzav/resk/contents/.github%2Fresk.json?ref=master')
       .reply(200, (uri, body) => {
-        return { sha: 'sha' }
+        const dump = JSON.stringify({
+          'schema.ts': {
+            id: '123',
+            html_url: 'something',
+          },
+        })
+        return { sha: 'sha', content: Buffer.from(dump).toString('base64') }
       })
       .put('/repos/maticzav/resk/contents/.github%2Fresk.json')
       .reply(200, (uri, body) => {
