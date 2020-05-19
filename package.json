@@ -25,7 +25,7 @@
   },
   "devDependencies": {
     "@types/jest": "25.2.3",
-    "@types/node": "13.13.6",
+    "@types/node": "13.13.7",
     "@types/prettier": "1.19.1",
     "@zeit/ncc": "0.22.2",
     "jest": "25.5.4",
