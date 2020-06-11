@@ -19,7 +19,7 @@
   "author": "Matic Zavadlal",
   "license": "MIT",
   "dependencies": {
-    "@octokit/rest": "^17.0.1",
+    "@octokit/rest": "^18.0.0",
     "globby": "^11.0.0",
     "prettier": "^1.19.1"
   },
